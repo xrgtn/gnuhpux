@@ -1,0 +1,9 @@
+This is a script for building binutils/gcc/make/python/etc
+on HP-UX 11.31 starting with _bundled_ [ANSI] HP-UX cc
+compiler: http://xrgtn.livejournal.com/38254.html
+
+P.S.
+
+Older HP-UX 11.11 used K&R cc compiler, which could be used
+for bootstrapping using almost the same initial versions of
+binutils/gcc, see http://xrgtn.livejournal.com/29123.html
