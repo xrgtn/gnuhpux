@@ -1,0 +1,4 @@
+68c68
+<                 passwd = _raw_input(prompt, stream, input=input)
+---
+>                 passwd = _raw_input(prompt, stream, input=sys.stdin)

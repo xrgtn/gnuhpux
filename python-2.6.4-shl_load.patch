@@ -1,0 +1,9 @@
+30c30
+< 	flags = BIND_FIRST | BIND_DEFERRED;
+---
+> 	flags = BIND_FIRST | BIND_DEFERRED | BIND_VERBOSE;
+40,41c40
+< 		if (Py_VerboseFlag)
+< 			perror(pathname);
+---
+>                 perror(pathname);

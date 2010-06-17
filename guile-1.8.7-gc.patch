@@ -1,0 +1,6 @@
+1039a1040
+> #  include <sys/uc_access.h>
+1045c1046
+<   return (void *) bsp;
+---
+>   return (void *)(long) bsp;

@@ -82,6 +82,8 @@ cmi () {
         patch Include/pyport.h <../python-2.6.4-pyport.patch
         patch Include/py_curses.h <../python-2.6.4-curses.patch
         patch Modules/_curses_panel.c <../python-2.6.4-panel.patch
+        patch Python/dynload_hpux.c <../python-2.6.4-shl_load.patch
+        patch Lib/getpass.py <../python-2.6.4-getpass.patch
     elif [ "z$s" = "zautogen-5.10.1" ] ; then
         CPPFLAGS="-std=gnu89 -D_XOPEN_SOURCE=500"
         #perl -pi -wse 's/setjmp[.]h/setjmpshit.h/' configure

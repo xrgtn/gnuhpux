@@ -1,0 +1,4 @@
+471a472,474
+> #ifdef HAVE_TERMIOS_H_BEFORE_SYS_TERMIO_H
+> #include <termios.h>
+> #endif

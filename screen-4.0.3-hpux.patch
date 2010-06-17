@@ -1,0 +1,4 @@
+616c616
+< # if defined(linux) || defined(__convex__) || (BSD >= 199103)
+---
+> # if defined(linux) || defined(__convex__) || (BSD >= 199103) || (_XOPEN_SOURCE >= 600)

@@ -1,0 +1,6 @@
+16486a16487,16491
+> 	hpux*)	#( from ld manpage for hpux10.20, hpux11.11
+> 		# We could also use just "archive" and "shared".
+> 		LDFLAGS_STATIC=-Wl,-a,archive_shared
+> 		LDFLAGS_SHARED=-Wl,-a,shared_archive
+> 		;;

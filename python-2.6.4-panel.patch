@@ -1,0 +1,6 @@
+16a17,19
+> #ifdef HAVE_NCURSES_NCURSES_H
+> #include <ncurses/panel.h>
+> #else
+17a21
+> #endif

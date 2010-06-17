@@ -1,0 +1,6 @@
+47c47,49
+< #ifdef HAVE_NCURSES_H
+---
+> #ifdef HAVE_NCURSES_NCURSES_H
+> #include <ncurses/ncurses.h>
+> #elif HAVE_NCURSES_H
