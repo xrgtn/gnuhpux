@@ -47,6 +47,7 @@ while (<STDIN>) {
     my @up;
     foreach my $p (@p) {
         exists $k{$p} and next;
+        "z$p" eq "z" and next;
         $k{$p} = 1;
         push(@up, $p);
     };
