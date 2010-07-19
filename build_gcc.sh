@@ -1,11 +1,19 @@
 #!/bin/sh -e
 
+[ "z$TGT" = "z" ] && TGT=32
+if [ "z$TGT" = "z32" ] ; then
+    XX=xxx32
+elif [ "z$TGT" = "z64" ] ; then
+    XX=xxx64
+fi
 cd ~/src/
-PATH=/comptel/ilink/xxx/bin:/usr/bin:/usr/contrib/bin:/usr/bin/X11:/usr/contrib/bin/X11:/opt/ssh/bin
+BLD="/comptel/ilink/$XX"
+PRD="/comptel/ilink/local"
+PATH="$PRD/bin:$BLD/bin:/usr/bin:/usr/contrib/bin:/usr/bin/X11:/usr/contrib/bin/X11:/opt/ssh/bin"
 export PATH
-LD_LIBRARY_PATH=/comptel/ilink/xxx/lib
+LD_LIBRARY_PATH="$PRD/lib:$BLD/lib"
 export LD_LIBRARY_PATH
-MANPATH=/comptel/ilink/xxx/man/%L:/comptel/ilink/xxx/man/:$MANPATH
+MANPATH="$PRD/man/%L:$PRD/man:$BLD/man/%L:$BLD/man:$MANPATH"
 export MANPATH
 CPPFLAGS="-D_XOPEN_SOURCE=600"
 export CPPFLAGS
@@ -15,8 +23,8 @@ CONFIG_SHELL=/usr/local/bin/bash
 export CONFIG_SHELL
 UNIX_STD=2003
 export UNIX_STD
-DST_PFX="/comptel/ilink/xxx"
-CMI_LOG="/comptel/ilink/xxx/log"
+DST_PFX="$BLD"
+CMI_LOG="$BLD/log"
 
 if ! [ -d "$CMI_LOG" ] ; then
     echo "ERROR: build log directory $CMI_LOG doesn't exist" 1>&2
@@ -112,7 +120,11 @@ cmi () {
     fi
     "$CONFIGURE" "$@" >"$CMI_LOG/$s"-configure.log 2>&1
     if [ "z$s" = "zgcc-3.3.6" ] && [ "z$2" = "z--enable-languages=c" ] ; then
-        make bootstrap MAKE='make -j 8' >"$CMI_LOG/$s"-make.log 2>&1
+        if [ "z$TGT" = "z64" ] ; then
+            make bootstrap >"$CMI_LOG/$s"-make.log 2>&1
+        else
+            make bootstrap MAKE='make -j 8' >"$CMI_LOG/$s"-make.log 2>&1
+        fi
     elif [ "z$s" = "zgcc-3.4.6" ] || [ "z$s" = "zgcc-3.3.6" ] ; then
         make MAKE='make -j 8' >"$CMI_LOG/$s"-make.log 2>&1
     elif [ "z$s" = "zguile-1.8.7" ] ; then
@@ -141,13 +153,17 @@ cmi () {
     EXTRA_CFLAGS=
 }
 
-cmi binutils-2.16.1 --prefix="$DST_PFX"
+if [ "z$TGT" = "z64" ] ; then
+    CC="cc -Wp,-H256000 +DD$TGT"
+    export CC
+fi
 
 for s in binutils-2.16.1 bison-1.25 flex-2.5.4 m4-1.4.14 make-3.81 ; do
     cmi "$s" --prefix="$DST_PFX"
 done
 
 cmi gcc-3.3.6 --prefix="$DST_PFX" --enable-languages=c
+unset CC || true
 #termcap-1.3.1
 for s in libiconv-1.13.1 sed-4.2.1 tar-1.22 gawk-3.1.6 \
 flex-2.5.33 bison-2.4 \
