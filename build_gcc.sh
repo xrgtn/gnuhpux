@@ -2,9 +2,9 @@
 
 [ "z$TGT" = "z" ] && TGT=32
 if [ "z$TGT" = "z32" ] ; then
-    XX=xxx32
+    XX=xxxxxxxxxxxxxxxx32
 elif [ "z$TGT" = "z64" ] ; then
-    XX=xxx64
+    XX=xxxxxxxxxxxxxxxx64
 fi
 cd ~/src/
 BLD="/comptel/ilink/$XX"
