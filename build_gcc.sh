@@ -181,7 +181,14 @@ done
 cmi bzip2-1.0.5 PREFIX=$DST_PFX
 cmi openssl-0.9.8m --prefix="$DST_PFX" hpux64-ia64-gcc
 for s in sqlite-3.6.23 Python-2.6.4 rsync-3.0.7 cvs-1.11.23 \
-libtool-2.2.6b gmp-5.0.1 guile-1.8.7 autogen-5.10.1 ; do
+libtool-2.2.6b gmp-5.0.1 ; do
+    cmi "$s" --prefix="$DST_PFX"
+done
+mv "$DST_PFX/bin/screen-4.0.3" "$DST_PFX/bin/screen-4.0.3.root"
+cp "$DST_PFX/bin/screen-4.0.3.root" "$DST_PFX/bin/screen-4.0.3"
+rm -f "$DST_PFX/bin/screen-4.0.3.root"
+chmod u+w "$DST_PFX/lib/"*.*
+for s in guile-1.8.7 autogen-5.10.1 ; do
     cmi "$s" --prefix="$DST_PFX"
 done
 cmi netcat-1.10.orig
